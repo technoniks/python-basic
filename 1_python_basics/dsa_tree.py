@@ -87,10 +87,10 @@ class BinarySearchTree:
   def delete(self, val):
     if val < self.data:
       if self.left:
-        self.left.delete(val)
+        self.left = self.left.delete(val)
     elif val > self.data:
       if self.right:
-        self.right.delete(val)
+        self.right = self.right.delete(val)
     else:
       if self.left is None and self.right is None:
         return None
@@ -98,6 +98,16 @@ class BinarySearchTree:
         return self.right
       if self.right is None:
         return self.left
+
+      # min_val = self.right.min_value()
+      # self.data = min_val
+      # self.right = self.right.delete(min_val)
+
+      max_val = self.left.max_value()
+      self.data = max_val
+      self.left = self.left.delete(max_val)
+
+    return self
 
 def build_product_tree():
   root = TreeNode("Electonics")
@@ -134,15 +144,19 @@ if __name__ == '__main__':
   # root.print_tree()
 
   numbers = [17, 4, 1, 20, 9, 23, 18, 34]
-  countries = ["India", "China", "Pakistan", "UK", "USA"]
+  # countries = ["India", "China", "Pakistan", "UK", "USA"]
   numbers_tree = build_binary_tree(numbers)
-  countries_tree = build_binary_tree(countries)
-  print(numbers_tree.in_order_traversal())
-  numbers_tree.delete(20)
-  print(numbers_tree.in_order_traversal())
-  print(numbers_tree.search(20))
-  print(numbers_tree.search(99))
+  # countries_tree = build_binary_tree(countries)
 
-  print(countries_tree.in_order_traversal())
-  print(countries_tree.search("UK"))
-  print(countries_tree.search("NEPAL"))
+  # print(numbers_tree.search(20))
+  # print(numbers_tree.search(99))
+
+  # print(countries_tree.in_order_traversal())
+  # print(countries_tree.search("UK"))
+  # print(countries_tree.search("NEPAL"))
+
+  print(numbers_tree.in_order_traversal())
+  print(numbers_tree.max_value())
+  print(numbers_tree.min_value())
+  numbers_tree.delete(17)
+  print(numbers_tree.in_order_traversal())
