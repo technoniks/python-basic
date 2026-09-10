@@ -1,14 +1,27 @@
-def safe_chai_bill(cups, price_per_cup):
-  try:
-    cups = int(cups)
-    price_per_cup = float(price_per_cup)
-    if cups < 1:
-      return "Cups must be at least 1"
-    return cups * price_per_cup
-  except ValueError as err:
-    return "Please enter numbers only."
+class Accident(Exception):
+  def __init__(self, e):
+    self.e = e
+  
+  def print_exception(self):
+    print(f"User defined Exceptino: {self.e}")
 
-print(safe_chai_bill("3", "15"))     # normal text input from a form
-print(safe_chai_bill(2, 15))          # normal numbers
-print(safe_chai_bill("two", 15))      # bad input -> caught
-print(safe_chai_bill(0, 15))
+  def handle(self):
+    print("accident happen, call ambulance")
+
+def process_file():
+  try:
+    f = open("c:\\code\\data.txt")
+    x = 1/0
+  except FileNotFoundError as e:
+    print(f"except: {e}")
+  except ZeroDivisionError as e:
+    print(f"except: {e}")
+  finally: # clean up / close up
+    print("cleaning up file")
+    f.close()
+
+try:
+  raise Accident("crash between two bikes")
+except Accident as e:
+  e.print_exception()
+  e.handle()
